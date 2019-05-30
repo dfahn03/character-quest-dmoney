@@ -27,6 +27,7 @@ export default class UserController {
   async getUserByName(req,res,next) {
     try {
       let user = await _repo.findOne({name: req.params.name})
+      return res.send(user)
     } catch (error) {next(error)}
   }
   async editUser(req,res,next) {
@@ -38,8 +39,9 @@ export default class UserController {
   }
   async createUser(req,res,next) {
     try {
-      let users = await _repo
-    } catch (error) {
+      let user = await _repo.create(req.body)
+      return res.status(201).send(user)
+    } catch (error) {next(error)
       
     }
   }

@@ -8,7 +8,12 @@ server.use(bp.urlencoded({ extended: true }))
 server.use(bp.json())
 
 //register routes
+import UserController from './controllers/UserController'
+import ProfessionController from './controllers/ProfessionController'
 
+
+server.use('/api/users', new UserController().router)
+server.use('/api/professions', new ProfessionController().router)
 
 
 
