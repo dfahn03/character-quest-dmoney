@@ -10,10 +10,12 @@ server.use(bp.json())
 //register routes
 import UserController from './controllers/UserController'
 import ProfessionController from './controllers/ProfessionController'
+import CharacterController from './controllers/CharacterController'
 
 
 server.use('/api/users', new UserController().router)
 server.use('/api/professions', new ProfessionController().router)
+server.use('/api/characters', new CharacterController().router)
 
 
 

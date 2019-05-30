@@ -8,7 +8,7 @@ export default class CharacterController {
   constructor() {
     this.router = express.Router()
       .get('', this.getAllCharacters)
-      .get('/:id', this.getCharacterById)
+      .get('/:id', this.getCharacterByUserName)
       .put('/:id', this.editCharacter)
       .post('', this.createCharacter)
       .delete('/:id', this.deleteCharacter)
@@ -21,9 +21,9 @@ export default class CharacterController {
       return res.send(characters)
     } catch (error) {next(error)}
   }
-  async getCharacterById(req,res,next) {
+  async getCharacterByUserName(req,res,next) {
     try {
-      let character = await _repo.findOne({_id: req.params.id})
+      let character = await _repo.findOne({name: req.params.name})
       return res.send(character)
     } catch (error) {next(error)}
   }
