@@ -1,58 +1,58 @@
 import express from 'express'
-import QuestService from '../services/QuestService'
+import CQService from '../services/CQService'
 
-let _questService = new QuestService()
-let _repo = _questService.repository
+let _cqService = new CQService()
+let _repo = _cqService.repository
 
-export default class QuestController {
+export default class CQController {
   constructor() {
     this.router = express.Router()
-      .get('', this.getAllQuests)
-      .get('/:id', this.getQuestById)
-      .put('/:id', this.editQuest)
-      .post('', this.createQuest)
-      .delete('/:id', this.deleteQuest)
+      .get('', this.getAllCQs)
+      .get('/characters/:characterId/quests/:questId', this.getCQ)
+      .put('/:id', this.editCQ)
+      .post('', this.createCQ)
+      .delete('/:id', this.deleteCQ)
       .use('*', this.defaultRoute)
   }
 
-  async getAllQuests(req, res, next) {
+  async getAllCQs(req, res, next) {
     try {
-      let quests = await _repo.find({})
-      return res.send(quests)
+      let cqs = await _repo.find({})
+      return res.send(cqs)
     } catch (error) { next(error) }
   }
-  async getQuestById(req, res, next) {
+  async getCQ(req, res, next) {
     try {
-      let quest = await _repo.findOne({ _id: req.params.id })
-      return res.send(quest)
+      let cq = await _repo.findOne({ characterId: req.params.id, questId: req.params.id }).populate('characterId').populate('questId')
+      return res.send(cq)
     } catch (error) { next(error) }
   }
-  async editQuest(req, res, next) {
+  async editCQ(req, res, next) {
     try {
-      let quests = await _repo
+      let cqs = await _repo
     } catch (error) {
 
     }
   }
-  async createQuest(req, res, next) {
+  async createCQ(req, res, next) {
     try {
-      let quest = await _repo.create(req.body)
-      return res.status(201).send(quest)
+      let cq = await _repo.create(req.body)
+      return res.status(201).send(cq)
     } catch (error) {
       next(error)
 
     }
   }
-  async deleteQuest(req, res, next) {
+  async deleteCQ(req, res, next) {
     try {
-      let quests = await _repo
+      let cqs = await _repo
     } catch (error) {
 
     }
   }
 
   defaultRoute(req, res, next) {
-    next({ status: 400, message: 'no such quest' })
+    next({ status: 400, message: 'no such cq' })
   }
 
 }

@@ -12,12 +12,14 @@ import UserController from './controllers/UserController'
 import ProfessionController from './controllers/ProfessionController'
 import CharacterController from './controllers/CharacterController'
 import QuestController from './controllers/QuestController'
+import CQController from './controllers/CQController'
 
 
 server.use('/api/users', new UserController().router)
 server.use('/api/professions', new ProfessionController().router)
 server.use('/api/characters', new CharacterController().router)
 server.use('/api/quests', new QuestController().router)
+server.use('/api/cqs', new CQController().router)
 
 
 
