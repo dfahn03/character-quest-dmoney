@@ -51,7 +51,7 @@ export default class CQController {
   }
 
   defaultRoute(req, res, next) {
-    next({ status: 400, message: 'no such cq' })
+    next({ status: 400, message: 'No Such CharacterQuest' })
   }
 
 }

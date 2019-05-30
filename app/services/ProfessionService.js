@@ -4,7 +4,7 @@ import mongoose from 'mongoose'
 let _schema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String }
-})
+}, { timestamps: true })
 
 //PUBLIC
 export default class ProfessionService {

@@ -8,7 +8,7 @@ let _schema = new mongoose.Schema({
   questId: { type: ObjectId, ref: 'quest', required: true },
   status: { type: String, enum: ['completed', 'active', 'failed'], required: true, default: 'active' },
 
-})
+}, { timestamps: true })
 
 //PUBLIC
 export default class CQService {
