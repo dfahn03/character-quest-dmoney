@@ -1,11 +1,12 @@
 import mongoose from 'mongoose'
 
+//PRIVATE
 let _schema = new mongoose.Schema({
-  name: {type: String, required: true},
-  description: {type:String}
+  name: { type: String, required: true },
+  description: { type: String }
 })
 
-
+//PUBLIC
 export default class ProfessionService {
   get repository() {
     return mongoose.model('profession', _schema)

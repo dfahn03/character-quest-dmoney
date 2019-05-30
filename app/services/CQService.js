@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 
+//PRIVATE
 let ObjectId = mongoose.Schema.Types.ObjectId
 
 let _schema = new mongoose.Schema({
@@ -9,7 +10,7 @@ let _schema = new mongoose.Schema({
 
 })
 
-
+//PUBLIC
 export default class CQService {
   get repository() {
     return mongoose.model('cq', _schema)

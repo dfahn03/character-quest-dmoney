@@ -1,9 +1,11 @@
 import express from 'express'
 import QuestService from '../services/QuestService'
 
+//PRIVATE
 let _questService = new QuestService()
 let _repo = _questService.repository
 
+//PUBLIC
 export default class QuestController {
   constructor() {
     this.router = express.Router()
@@ -29,7 +31,11 @@ export default class QuestController {
   }
   async editQuest(req, res, next) {
     try {
-      let quests = await _repo
+      let quest = await _repo.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+      if (quest) {
+        return res.send(quest)
+      }
+      throw new Error('Invalid Character Id')
     } catch (error) {
 
     }

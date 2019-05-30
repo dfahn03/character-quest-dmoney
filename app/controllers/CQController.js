@@ -1,9 +1,11 @@
 import express from 'express'
 import CQService from '../services/CQService'
 
+//PRIVATE
 let _cqService = new CQService()
 let _repo = _cqService.repository
 
+//PUBLIC
 export default class CQController {
   constructor() {
     this.router = express.Router()
@@ -17,7 +19,7 @@ export default class CQController {
 
   async getAllCQs(req, res, next) {
     try {
-      let cqs = await _repo.find({})
+      let cqs = await _repo.find({}).populate({ path: 'characterId', populate: { path: 'profession userId'/*, select: 'name'*/ } }).populate('questId')
       return res.send(cqs)
     } catch (error) { next(error) }
   }
@@ -29,7 +31,11 @@ export default class CQController {
   }
   async editCQ(req, res, next) {
     try {
-      let cqs = await _repo
+      let cq = await _repo.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+      if (cq) {
+        return res.send(cq)
+      }
+      throw new Error('Invalid Character Id')
     } catch (error) { next(error) }
   }
   async createCQ(req, res, next) {

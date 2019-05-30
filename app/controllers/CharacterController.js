@@ -1,9 +1,11 @@
 import express from 'express'
 import CharacterService from '../services/CharacterService'
 
+//PRIVATE
 let _characterService = new CharacterService()
 let _repo = _characterService.repository
 
+//PUBLIC
 export default class CharacterController {
   constructor() {
     this.router = express.Router()
@@ -17,7 +19,7 @@ export default class CharacterController {
 
   async getAllCharacters(req, res, next) {
     try {
-      let characters = await _repo.find({})
+      let characters = await _repo.find({}).populate('professionId', 'name profession').populate('userId', 'name')
       return res.send(characters)
     } catch (error) { next(error) }
   }
@@ -29,10 +31,12 @@ export default class CharacterController {
   }
   async editCharacter(req, res, next) {
     try {
-      let characters = await _repo
-    } catch (error) {
-
-    }
+      let character = await _repo.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+      if (character) {
+        return res.send(character)
+      }
+      throw new Error('Invalid Character Id')
+    } catch (error) { next(error) }
   }
   async createCharacter(req, res, next) {
     try {
