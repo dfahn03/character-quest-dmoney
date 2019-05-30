@@ -30,25 +30,18 @@ export default class CQController {
   async editCQ(req, res, next) {
     try {
       let cqs = await _repo
-    } catch (error) {
-
-    }
+    } catch (error) { next(error) }
   }
   async createCQ(req, res, next) {
     try {
       let cq = await _repo.create(req.body)
       return res.status(201).send(cq)
-    } catch (error) {
-      next(error)
-
-    }
+    } catch (error) { next(error) }
   }
   async deleteCQ(req, res, next) {
     try {
-      let cqs = await _repo
-    } catch (error) {
-
-    }
+      let cqs = await _repo.findOneAndDelete({ _id: req.params.id })
+    } catch (error) { next(error) }
   }
 
   defaultRoute(req, res, next) {

@@ -38,14 +38,11 @@ export default class QuestController {
     try {
       let quest = await _repo.create(req.body)
       return res.status(201).send(quest)
-    } catch (error) {
-      next(error)
-
-    }
+    } catch (error) { next(error) }
   }
   async deleteQuest(req, res, next) {
     try {
-      let quests = await _repo
+      let quests = await _repo.findOneAndDelete({ _id: req.params.id })
     } catch (error) {
 
     }
